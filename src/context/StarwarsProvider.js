@@ -2,8 +2,16 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import StarwarsContext from './Context';
 
+const INITIAL_FILTERS = {
+  filterByName: {
+    name: '',
+  },
+};
+
 const StarwarsProvider = ({ children }) => {
+  const [planetsAll, setPlanetsAll] = useState([]);
   const [planets, setPlanets] = useState([]);
+  const [filters, setFilters] = useState(INITIAL_FILTERS);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPlanets = async () => {
@@ -12,14 +20,29 @@ const StarwarsProvider = ({ children }) => {
     const request = await fetch(url);
     const resolve = await request.json();
     setIsLoading(false);
+    setPlanetsAll(resolve.results);
     setPlanets(resolve.results);
+  };
+
+  const filterPlanetByName = () => {
+    const { filterByName: { name } } = filters;
+    // ref: https://www.w3schools.com/jsref/jsref_filter.asp
+    const filteredPlanets = planetsAll.filter(
+      // ref: https://www.w3schools.com/jsref/jsref_includes.asp
+      (planet) => planet.name.toLowerCase().includes(name.toLowerCase()),
+    );
+    return setPlanets(filteredPlanets);
   };
 
   useEffect(() => {
     fetchPlanets();
   }, []);
 
-  const state = { planets, isLoading };
+  useEffect(() => {
+    filterPlanetByName();
+  }, [filters]);
+
+  const state = { planets, isLoading, filters, setFilters };
 
   return (
     <StarwarsContext.Provider value={ state }>

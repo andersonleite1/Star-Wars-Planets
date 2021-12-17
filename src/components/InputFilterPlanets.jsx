@@ -3,8 +3,7 @@ import StarwarsContext from '../context/Context';
 
 export default function InputFilterPlanets() {
   const { filters, setFilters } = useContext(StarwarsContext);
-  const { filterByName } = filters;
-  const { name } = filterByName;
+  const { filterByName: { name } } = filters;
 
   const handleChange = ({ target: { value } }) => {
     setFilters({

@@ -6,6 +6,13 @@ const INITIAL_FILTERS = {
   filterByName: {
     name: '',
   },
+  filterByNumericValues: [
+    {
+      column: 'population',
+      comparison: 'maior que',
+      value: 0,
+    },
+  ],
 };
 
 const StarwarsProvider = ({ children }) => {
@@ -34,6 +41,34 @@ const StarwarsProvider = ({ children }) => {
     return setPlanets(filteredPlanets);
   };
 
+  const filterPlanetByNumericsValues = () => {
+    const { filterByNumericValues } = filters;
+
+    const columnData = filterByNumericValues[0].column;
+    const valueData = filterByNumericValues[0].value;
+
+    const filteredPlanetsBigger = planetsAll.filter(
+      (planet) => planet[columnData] > parseFloat(valueData),
+    );
+    const filteredPlanetsMinors = planetsAll.filter(
+      (planet) => planet[columnData] < parseFloat(valueData),
+    );
+    const filteredPlanetsEquals = planetsAll.filter(
+      (planet) => planet[columnData] === valueData,
+    );
+
+    switch (filterByNumericValues[0].comparison) {
+    case 'maior que':
+      return setPlanets(filteredPlanetsBigger);
+    case 'menor que':
+      return setPlanets(filteredPlanetsMinors);
+    case 'igual a':
+      return setPlanets(filteredPlanetsEquals);
+    default:
+      return planets;
+    }
+  };
+
   useEffect(() => {
     fetchPlanets();
   }, []);
@@ -42,7 +77,13 @@ const StarwarsProvider = ({ children }) => {
     filterPlanetByName();
   }, [filters]);
 
-  const state = { planets, isLoading, filters, setFilters };
+  const state = {
+    planets,
+    isLoading,
+    filters,
+    setFilters,
+    filterPlanetByNumericsValues,
+  };
 
   return (
     <StarwarsContext.Provider value={ state }>

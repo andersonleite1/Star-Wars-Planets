@@ -22,7 +22,7 @@ export default function InputFilterPlanets() {
       data-testid="name-filter"
       placeholder="Filter by name"
       value={ name }
-      onChange={ (event) => handleChange(event) }
+      onChange={ handleChange }
     />
   );
 }

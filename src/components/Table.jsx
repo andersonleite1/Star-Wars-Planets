@@ -24,7 +24,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          { isLoading && <h3>Loading...</h3>}
+          { isLoading && <tr><td>Loading...</td></tr>}
           { planets.map((planet) => (
             <tr key={ planet.name }>
               <td>{ planet.name }</td>

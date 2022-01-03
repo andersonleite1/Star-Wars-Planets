@@ -3,9 +3,11 @@ import StarwarsContext from '../context/Context';
 
 export default function FilterNumericsPlanets() {
   const {
+    column,
     filters,
     setFilters,
     filterPlanetByNumericsValues,
+    removeItemColumn,
   } = useContext(StarwarsContext);
 
   const handleChange = ({ target: { name, value } }) => {
@@ -22,6 +24,7 @@ export default function FilterNumericsPlanets() {
 
   const handleClick = () => {
     filterPlanetByNumericsValues();
+    removeItemColumn();
   };
 
   return (
@@ -34,11 +37,9 @@ export default function FilterNumericsPlanets() {
           data-testid="column-filter"
           onChange={ handleChange }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          {column.map((data, index) => (
+            <option key={ `${data}-${index}` } value={ data }>{data}</option>
+          ))}
         </select>
       </label>
       <label htmlFor="comparison-filter">

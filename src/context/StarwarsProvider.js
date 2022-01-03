@@ -15,10 +15,19 @@ const INITIAL_FILTERS = {
   ],
 };
 
+const INITIAL_COLUMN = [
+  'population',
+  'orbital_period',
+  'diameter',
+  'rotation_period',
+  'surface_water',
+];
+
 const StarwarsProvider = ({ children }) => {
   const [planetsAll, setPlanetsAll] = useState([]);
   const [planets, setPlanets] = useState([]);
   const [filters, setFilters] = useState(INITIAL_FILTERS);
+  const [column, setColumn] = useState(INITIAL_COLUMN);
   const [isLoading, setIsLoading] = useState(false);
 
   const fetchPlanets = async () => {
@@ -69,6 +78,12 @@ const StarwarsProvider = ({ children }) => {
     }
   };
 
+  const removeItemColumn = () => {
+    const itemSelected = filters.filterByNumericValues[0].column;
+    const items = column.filter((item) => item !== itemSelected);
+    setColumn(items);
+  };
+
   useEffect(() => {
     fetchPlanets();
   }, []);
@@ -82,7 +97,9 @@ const StarwarsProvider = ({ children }) => {
     isLoading,
     filters,
     setFilters,
+    column,
     filterPlanetByNumericsValues,
+    removeItemColumn,
   };
 
   return (

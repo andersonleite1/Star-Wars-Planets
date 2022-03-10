@@ -1,17 +1,18 @@
 import React from 'react';
 import StarwarsProvider from './context/StarwarsProvider';
-import Table from './components/Table';
+import TablePlanets from './components/TablePlanets';
 import './App.css';
+import Title from './components/Title';
 import InputFilterPlanets from './components/InputFilterPlanets';
 import FilterNumericsPlanets from './components/FilterNumericsPlanets';
 
 function App() {
   return (
     <StarwarsProvider>
-      <h1>Projeto Star Wars - Trybe</h1>
+      <Title />
       <InputFilterPlanets />
       <FilterNumericsPlanets />
-      <Table />
+      <TablePlanets />
     </StarwarsProvider>
   );
 }

@@ -1,11 +1,39 @@
 import React, { useContext } from 'react';
+import styled from 'styled-components';
 import StarwarsContext from '../context/Context';
 
-function Table() {
+export default function TablePlanets() {
+  const Container = styled.section`
+    margin: 0 2rem;
+  `;
+
+  const Table = styled.table`
+    border-collapse: collapse;
+    text-align: center;
+    border: 1px solid;
+    background-color: black;
+    margin-top: 0.8rem;
+
+    &
+    th {
+      border: 1px solid;
+      padding: 0.2rem;
+      color: white;
+      background-color: #011bff;
+    }
+    td {
+      border: 1px solid;
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+  `;
+
   const { planets, isLoading } = useContext(StarwarsContext);
+
   return (
-    <div>
-      <table>
+    <Container>
+      <Table>
         <thead>
           <tr>
             <th>Name</th>
@@ -43,9 +71,7 @@ function Table() {
             </tr>
           )) }
         </tbody>
-      </table>
-    </div>
+      </Table>
+    </Container>
   );
 }
-
-export default Table;

@@ -3,7 +3,7 @@
 ## Descrição 
 
 Esse foi um dos projetos que realizei na [Trybe](https://www.betrybe.com/), nele desenvolvi uma lista com filtros de planetas do universo de Star Wars usando **Context API e Hooks** para controlar os estados globais da aplicação.
-Para ter acesso basta clicar [neste link]().
+Para ter acesso basta clicar [neste link](https://project-starwars-planet.herokuapp.com/).
 
 ## Habilidades
 
